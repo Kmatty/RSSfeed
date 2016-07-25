@@ -1,0 +1,69 @@
+<link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="../components/google-feeds/google-feeds.html">
+<link rel="import" href="../components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../components/paper-input/paper-input.html">
+<link rel="import" href="../components/iron-list/iron-list.html">
+<link rel="import" href="../components/paper-card/paper-card.html">
+
+<dom-module id="rss-feed">
+  <template>
+    <h1>RSS-Feed element demo</h1>
+    <!-- http://www.engadget.com/rss-full.xml -->
+    <!-- google-feeds feed='http://www.nu.nl/rss' results='{{result}}'></google-feeds -->
+    <google-feeds feed="{{linkValue}}" results='{{result}}'></google-feeds>
+    <p>Feed link: <span>{{result.link}}</span></p>
+    <p>Feed description: <span>{{result.description}}</span></p>
+
+    <!-- You can use the "dom-if" if u want to hide the <h3> tag in case the result is empty -->
+    <!--template is="dom-if" if="{{result.entries.length}}"
+      <h3>Feed entries:</h3>
+    </template -->
+
+    <style is="custom-style">
+      .flex-horizontal-with-ratios {
+        @apply(--layout-horizontal);
+      }
+      .flexchild {
+        @apply(--layout-flex);
+      }
+      .flex2child {
+        @apply(--layout-flex-2);
+      }
+      .flex3child {
+        @apply(--layout-flex-3);
+      }
+    </style>
+
+    <h3>Feed entries:</h3>
+
+    <!-- "dom-repeat" is loop through aan object in polymer-->
+
+    <template is="dom-repeat" items="{{result.entries}}" as="entry">
+      <div class="container flex-horizontal-with-ratios">
+      <div class="flexchild">{{entry.title}}:</div>
+      <div class="flex2child"><a href={{entry.link}}>{{entry.link}}</a><div>
+      </div>
+    </template>
+    <br><br><br>
+    <paper-input value="{{linkValue}}" label="Please enter the RSS link"></paper-input>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'rss-feed',
+      properties: {
+        result: {
+          type: Object,
+          observer: '_onResultsChanged'
+        },
+        linkValue: {
+          type: String,
+        }
+      },
+      _onResultsChanged: function(newValue, oldValue) {
+        console.log(newValue);
+      }
+    });
+  </script>
+
+</dom-module>
