@@ -20,16 +20,16 @@
     <p>Feed link: <span>{{result.link}}</span></p>
     <p>Feed description: <span>{{result.description}}</span></p>
 
-    <paper-card heading="Feed entries" animated-shadow="true">
+    <paper-listbox>
       <template is="dom-repeat" items="{{result.entries}}" as="entry">
-       <!--div><a href={{entry.link}}>{{entry.link}}</a></div-->
-        <paper-listbox>
+        <paper-card animated-shadow="true">
+          <!--div><a href={{entry.link}}>{{entry.link}}</a></div-->
           <paper-item>{{entry.link}}</paper-item>
-        </paper-listbox>
-       <!--div>{{entry.link}}</div -->
+          <!--div>{{entry.link}}</div -->
+        </paper-card>
       </template>
       <br><br>
-    </paper-card>
+    <paper-listbox>
     <paper-input value="{{linkValue}}" label="Please enter the RSS link"></paper-input>
   </template>
 
